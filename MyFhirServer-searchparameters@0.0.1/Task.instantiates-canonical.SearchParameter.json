@@ -1,0 +1,24 @@
+{
+	"resourceType": "SearchParameter",
+	"id": "instantiates-canonical",
+	"url": "http://MyFhirServer/fhir/SearchParameter/Task-instantiates-canonical",
+	"version": "0.0.2",
+	"name": "instantiates-canonical",
+	"status": "active",
+	"date": "2022-07-28T13:26:01.1795899+00:00",
+	"description": "Instantiates FHIR protocol or definition",
+	"code": "instantiates-canonical",
+	"base": [
+		"Task"
+	],
+	"type": "reference",
+	"expression": "Task.instantiatesCanonical",
+	"xpath": "f:Task/f:instantiatesCanonical",
+	"xpathUsage": "normal",
+	"target": [
+		"ActivityDefinition"
+	],
+	"chain": [
+		"publisher-identifier"
+	]
+}
