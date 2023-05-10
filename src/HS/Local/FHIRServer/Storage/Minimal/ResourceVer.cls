@@ -1,3 +1,4 @@
+/// Override for ResourceVersion SuperClass
 Class HS.Local.FHIRServer.Storage.Minimal.ResourceVer Extends HS.FHIRServer.Storage.Json.ResourceVer
 {
 
