@@ -2,13 +2,13 @@
 Class HS.Local.FHIRServer.Storage.Json.InteractionsStrategy Extends HS.FHIRServer.Storage.Json.InteractionsStrategy
 {
 
-Parameter StrategyKey As %String = "MyJson";
+Parameter StrategyKey As STRING = "MyJson";
 
-Parameter InteractionsClass As %String = "HS.Local.FHIRServer.Storage.Json.Interactions";
+Parameter InteractionsClass As STRING = "HS.Local.FHIRServer.Storage.Json.Interactions";
 
-Parameter ResourceSuperclass As %String = "HS.Local.FHIRServer.Storage.Json.Resource";
+Parameter ResourceSuperclass As STRING = "HS.Local.FHIRServer.Storage.Json.Resource";
 
-Parameter ResourceVersionSuperclass As %String = "HS.Local.FHIRServer.Storage.Json.ResourceVer";
+Parameter ResourceVersionSuperclass As STRING = "HS.Local.FHIRServer.Storage.Json.ResourceVer";
 
 /// @API<br>
 /// Return a CapabilityStatement metadata resource. The returned content is derived from
