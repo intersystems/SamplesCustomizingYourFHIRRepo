@@ -6,11 +6,11 @@ Class HS.Local.FHIRServer.Storage.Json.Interactions Extends (HS.FHIRServer.Stora
 
 Parameter OperationHandlerClass = "HS.Local.FHIRServer.Storage.BuiltInOperations";
 
-Parameter BatchHandlerClass As %String = "HS.FHIRServer.Storage.Json.BundleProcessor";
+Parameter BatchHandlerClass As STRING = "HS.FHIRServer.Storage.Json.BundleProcessor";
 
-Parameter ResourceValidatorClass As %String = "HS.FHIRServer.Util.ResourceValidator";
+Parameter ResourceValidatorClass As STRING = "HS.FHIRServer.Util.ResourceValidator";
 
-Parameter OAuth2TokenHandlerClass As %String = "HS.FHIRServer.Util.OAuth2Token";
+Parameter OAuth2TokenHandlerClass As STRING = "HS.FHIRServer.Util.OAuth2Token";
 
 Property strategy As HS.Local.FHIRServer.Storage.Json.InteractionsStrategy;
 
