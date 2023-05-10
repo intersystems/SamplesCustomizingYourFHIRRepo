@@ -1,7 +1,7 @@
 Include HS.FHIRServer
 
 /// FHIR Interactions handler
-Class HS.Local.FHIRServer.Storage.Json.Interactions Extends (HS.FHIRServer.Storage.Json.Interactions, MyFHIRServer.Util.HeaderHelper, MyFHIRServer.Util.IdentifierHelper)
+Class HS.Local.FHIRServer.Storage.Json.Interactions Extends (HS.FHIRServer.Storage.Json.Interactions, MyFHIRServer.Util.IdentifierHelper)
 {
 
 Parameter OperationHandlerClass = "HS.Local.FHIRServer.Storage.BuiltInOperations";
