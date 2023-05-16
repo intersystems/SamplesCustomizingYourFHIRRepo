@@ -8,7 +8,7 @@ Parameter OperationHandlerClass = "HS.Local.FHIRServer.Storage.BuiltInOperations
 
 Parameter BatchHandlerClass As STRING = "HS.FHIRServer.Storage.Json.BundleProcessor";
 
-Parameter ResourceValidatorClass As STRING = "HS.FHIRServer.Util.ResourceValidator";
+Parameter ResourceValidatorClass As STRING = "HS.Local.FHIRServer.Util.ResourceValidator";
 
 Parameter OAuth2TokenHandlerClass As STRING = "HS.FHIRServer.Util.OAuth2Token";
 
