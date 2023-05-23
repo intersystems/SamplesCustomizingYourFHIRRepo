@@ -10,8 +10,10 @@ Method ValidateResource(pResourceObject As %DynamicObject)
     do ##super(pResourceObject)
 }
 
-/// This  method has been overwritten to add support for conditional references
-/// TBD: Add support for logical references
+/// This method has been overwritten to add support for:
+/// - Conditional references outside a transaction
+/// - Validating the type in logical references
+/// See *** CUSTOM CODE tags
 /// This internal method validates the properties of a single class in the FHIR Schema.  If the class contains
 /// properties that are objects, then this call is recursed with the sub-object(s)
 /// Inputs:<br>
@@ -20,10 +22,12 @@ Method ValidateResource(pResourceObject As %DynamicObject)
 /// pPath            : A FHIR-path representation to the object begin verified<br>
 /// pStati           : The accumulated status from previous validations.  This invocation will append
 ///                    the details of any validation failures found.<br>
+/// pIsInTransaction : Boolean indicating that we are inside a transction - which we set to 1 to allow conditional references outside the bundle!
 /// Returns:         : An updated status with any additional validation errors included.
-Method ValidateObject(pFHIRObject As %Library.DynamicObject, pFHIRTypename As %String, pPath As %String, pStati As %Status, pIsInTransaction As %Boolean = 0) [ Internal ]
+Method ValidateObject(pFHIRObject As %Library.DynamicObject, pFHIRTypename As %String, pPath As %String, pStati As %Status, pIsInTransaction As %Boolean = 0) As %Status [ Internal ]
 {
 	Set tSC = pStati
+    set pIsInTransaction = 1 // *** CUSTOM CODE that allows conditional references outside transactions
 
 	// Loop through all the properties in the object
 	Do {
@@ -295,6 +299,28 @@ Method ValidateObject(pFHIRObject As %Library.DynamicObject, pFHIRTypename As %S
 								
 							} while 0
 						}
+                        // *** CUSTOM CODE that deals with logical reference type START ***
+                        elseif (tData.type '= "") && (targetList '= "") {
+                            do {
+                                $$$FSLog("pFHIRTypename=" _ pFHIRTypename _ "; pPath=" _ pPath _ "; Data.type:" _ tData.type _ "; $LTS(targetList)=" _ $LTS(targetList))
+                                
+                                // Check the resourceType against each entry in the target list
+                                Set ok = 0
+                                for itl=1:1:$LL(targetList) {
+                                    Set target = $ListGet(targetList,itl)
+                                    if ..metaAPI.IsA(tData.type, target) {
+                                        // If it matches or is a Subclass, then accept it.
+                                        set ok=1
+                                        quit
+                                    }
+                                }
+
+                                if 'ok {
+                                    $$$FHIRAddError(tSC, $$$ERROR($$$HSFHIRErrInvalidReferenceTarget, tData.type_"::"_ref, tPropName, pFHIRTypename, $LTS(targetList), $$$OutcomeInvalidPath(propPath) ))
+                                }
+                            }  while 0
+                        }
+                        // *** CUSTOM CODE that deals with logical reference type END ***
 					}
 					
 					// The type of this object is specified in the Schema.  If the schema says 'alias'
