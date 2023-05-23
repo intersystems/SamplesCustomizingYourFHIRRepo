@@ -1,30 +1,47 @@
 # Title
-This code shows .. (explain why they care and what it is)
+This respository provides sample code that shows how you can customize the InterSystems IRIS for Health FHIR Repository.
+It was created for the presentation I prepared for the InterSystems Global Summit 2023
 
-This sample is used in <name and link to learning/doc content>.
+The use cases addressed with the code in this repo are:
+
+1. Input – pre-processing
+- Resource ids must be globally unique
+- Identifiers for a resource must be unique
+2. Output – post-processing
+- References must be enriched with a display value
+- Resource.text must be populated
+- Ordering (json) resource properties as defined in the specification (resourceType, id, meta, text, extension)
+3. Debugging using $$$FSLog()
+4. References
+- Referential Integrity must be ensured for  create, update and delete
+- Logical references and conditional references must be transformed into a literal reference
+
+
+These use cases are further explained in the accompanying powerpoint (to be added to this repo).
 
 ## Set Up
-1. abc
-2. def
- 
+No docker has been provided as part of this repo. I recommend you connect to a local IRIS instance and import / compile.
+
 ## Run the Sample
-1. abc
-2. def
+A [Postman collection](https://github.com/intersystems/SamplesCustomizingYourFHIRRepo/blob/2718e8db7973206cacbb4ffdd2c05e91e5d033b3/My%20Customized%20FHIR%20Server.postman_collection.json) is available to test the customizations
 
-## Output
-If all works correctly, you will see ...
+## Documentation
+The following InterSystems IRIS for Health Documentation is hellpful as background information:
 
-The output should say:
+[FHIR Server: An Introduction](https://docs.intersystems.com/irisforhealth20231/csp/docbook/Doc.View.cls?KEY=HXFHIR_server_intro)
 
-Blah blah blah
+[Customizing a FHIR Server](https://docs.intersystems.com/irisforhealth20231/csp/docbook/DocBook.UI.Page.cls?KEY=HXFHIR_server_customize_arch)
 
-## Keep Exploring
-To continue with another <describe>, see <name and link to content>.
+The FHIR specification
+
+[RESTful API](https://hl7.org/fhir/R4/http.html)
+
+[Search](https://hl7.org/fhir/R4/search.html)
+
+[References](https://hl7.org/fhir/R4/references.html)
 
 ## Bugslist (if necessary)
-<<Note: Any critical bugs should be fixed as quickly as possible>>
-
-
+1. In order to accept conditional reeferences I have disabled the built-in resource validator using Class HS.Local.FHIRServer.Util.ResourceValidator to prevent it from complaining. Goal is to replace that with a more subtle fix. 
 
 Use or operation of this code is subject to acceptance of the license available in the code repository for this code.
 
