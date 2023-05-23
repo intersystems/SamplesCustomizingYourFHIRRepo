@@ -40,8 +40,8 @@ The FHIR specification
 
 [References](https://hl7.org/fhir/R4/references.html)
 
-## Bugslist (if necessary)
-1. In order to accept conditional reeferences I have disabled the built-in resource validator using Class HS.Local.FHIRServer.Util.ResourceValidator to prevent it from complaining. Goal is to replace that with a more subtle fix. 
-
+## Bugslist
+There are no known bugs at this point in time
+## Finally
 Use or operation of this code is subject to acceptance of the license available in the code repository for this code.
 
