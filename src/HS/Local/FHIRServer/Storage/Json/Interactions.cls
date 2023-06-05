@@ -106,17 +106,15 @@ Method AddDisplayForReference(ByRef context, reference As %DynamicObject)
 {
 	#; set propName = context("_va", "curPropName")
 	set resourceType = $PIECE(reference.reference, "/", 1)
-	set resourceId = $PIECE(reference.reference, "/", 2)
 
 	try
 	{
 		set resourceClass = ..strategy.GetResourceClass(resourceType)
-		set rsrcKey = $$$BuildRsrcKey(resourceType, resourceId)
 		set reference.display = "(not-found)"
 
-		if $classmethod(resourceClass, "KeyIdxExists", rsrcKey) // This should be the case given that we have implemented referential integrity!
+		if $classmethod(resourceClass, "KeyIdxExists", reference.reference) // resource exists?
 		{
-			set storageObject = $classmethod(resourceClass, "KeyIdxOpen", rsrcKey, -1, .tSC)
+			set storageObject = $classmethod(resourceClass, "KeyIdxOpen", reference.reference, -1, .tSC)
 
 			if (storageObject.Deleted = 0) // Not deleted
 			{
