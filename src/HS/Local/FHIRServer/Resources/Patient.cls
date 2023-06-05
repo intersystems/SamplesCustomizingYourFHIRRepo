@@ -13,14 +13,14 @@ ClassMethod GenerateText(patient As %DynamicObject) As %String [ Language = pyth
                 ).get_template('patientDiv.html')
     lastname = patient._Get("name")._Get(0)._Get("family")
     firstname = patient._Get("name")._Get(0)._Get("given")._Get(0)
-    address = patient._Get("address")._Get(0)._Get("line")._Get(0)
-    address = address + ", " + patient._Get("address")._Get(0)._Get("city")
-    address = address + ", " + patient._Get("address")._Get(0)._Get("state")
-    address = address + ", " + patient._Get("address")._Get(0)._Get("country")
+    #; address = patient._Get("address")._Get(0)._Get("line")._Get(0)
+    #; address = address + ", " + patient._Get("address")._Get(0)._Get("city")
+    #; address = address + ", " + patient._Get("address")._Get(0)._Get("state")
+    #; address = address + ", " + patient._Get("address")._Get(0)._Get("country")
     phone = patient._Get("telecom")._Get(0)._Get("value")
     idnum = patient._Get("identifier")._Get(0)._Get("value")
     
-    ret = t.render(firstname = firstname, lastname = lastname, address = address, phone = phone, idnum = idnum)
+    ret = t.render(firstname = firstname, lastname = lastname, address = "", phone = phone, idnum = idnum)
 
     return ret
 }
