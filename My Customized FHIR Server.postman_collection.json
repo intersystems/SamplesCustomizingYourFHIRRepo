@@ -4,7 +4,7 @@
 		"name": "My Customized FHIR Server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "928524",
-		"_collection_link": "https://warped-equinox-639308.postman.co/workspace/My-Workspace~378a340d-80c4-4a64-81b6-e73725592699/collection/928524-37813a5f-ef27-4647-bff2-ece59861923e?action=share&creator=928524&source=collection_link"
+		"_collection_link": "https://warped-equinox-639308.postman.co/workspace/My-Workspace~378a340d-80c4-4a64-81b6-e73725592699/collection/928524-37813a5f-ef27-4647-bff2-ece59861923e?action=share&source=collection_link&creator=928524"
 	},
 	"item": [
 		{
@@ -32,6 +32,168 @@
 		{
 			"name": "Create resources",
 			"item": [
+				{
+					"name": "Create Organization 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 or 422\", () => {\r",
+									"  if (pm.expect(pm.response.code).to.be.oneOf([201,422]))\r",
+									"  {\r",
+									"    var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"    if (pm.response.code == 201)\r",
+									"    {\r",
+									"        pm.test(\"id is present\", function () {\r",
+									"            if (pm.expect(jsonData.id).exist)\r",
+									"            {\r",
+									"                pm.collectionVariables.set(\"organization1_id\", jsonData.id);\r",
+									"            }\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"ETag header is present\", function () {\r",
+									"            if (pm.response.to.have.header(\"ETag\"))\r",
+									"            {\r",
+									"                pm.collectionVariables.set(\"organization1_etag\", pm.response.headers.get(\"ETag\"));\r",
+									"            }\r",
+									"        });\r",
+									"    }\r",
+									"\r",
+									"    if (pm.response.code == 422)\r",
+									"    {\r",
+									"        pm.test(\"duplicate\", function () {\r",
+									"        if (pm.expect(jsonData.issue[0].code).exist.and.equals(\"duplicate\"))\r",
+									"        {\r",
+									"            pm.collectionVariables.set(\"organization1_id\", jsonData.issue[0].details.text.split(\"'\")[5]);\r",
+									"            console.log(pm.collectionVariables.get(\"organization1_id\"));\r",
+									"        }\r",
+									"        });\r",
+									"    }\r",
+									"  }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/fhir+json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"resourceType\": \"Organization\",\r\n    \"meta\": {\r\n        \"profile\": [\r\n            \"http://koppeltaal.nl/fhir/StructureDefinition/KT2Organization\"\r\n        ]\r\n    },\r\n    \"identifier\": [\r\n        {\r\n            \"system\": \"http://fhir.nl/fhir/NamingSystem/agb-zz\",\r\n            \"value\": \"1234.4567\"\r\n        }\r\n    ],\r\n    \"active\": true,\r\n    \"type\": [\r\n        {\r\n            \"coding\": [\r\n                {\r\n                    \"system\": \"http://nictiz.nl/fhir/NamingSystem/organization-typez\",\r\n                    \"code\": \"G5\",\r\n                    \"display\": \"Geestelijke Gezondheidszorg\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"name\": \"organization 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/Organization",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"Organization"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Organization 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 or 422\", () => {\r",
+									"  if (pm.expect(pm.response.code).to.be.oneOf([201,422]))\r",
+									"  {\r",
+									"    var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"    if (pm.response.code == 201)\r",
+									"    {\r",
+									"        pm.test(\"id is present\", function () {\r",
+									"            if (pm.expect(jsonData.id).exist)\r",
+									"            {\r",
+									"                pm.collectionVariables.set(\"organization2_id\", jsonData.id);\r",
+									"            }\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"ETag header is present\", function () {\r",
+									"            if (pm.response.to.have.header(\"ETag\"))\r",
+									"            {\r",
+									"                pm.collectionVariables.set(\"organization2_etag\", pm.response.headers.get(\"ETag\"));\r",
+									"            }\r",
+									"        });\r",
+									"    }\r",
+									"\r",
+									"    if (pm.response.code == 422)\r",
+									"    {\r",
+									"        pm.test(\"duplicate\", function () {\r",
+									"        if (pm.expect(jsonData.issue[0].code).exist.and.equals(\"duplicate\"))\r",
+									"        {\r",
+									"            pm.collectionVariables.set(\"organization2_id\", jsonData.issue[0].details.text.split(\"'\")[5]);\r",
+									"            console.log(pm.collectionVariables.get(\"organization2_id\"));\r",
+									"        }\r",
+									"        });\r",
+									"    }\r",
+									"  }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/fhir+json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"resourceType\": \"Organization\",\r\n    \"meta\": {\r\n        \"profile\": [\r\n            \"http://koppeltaal.nl/fhir/StructureDefinition/KT2Organization\"\r\n        ]\r\n    },\r\n    \"identifier\": [\r\n        {\r\n            \"system\": \"http://fhir.nl/fhir/NamingSystem/agb-zz\",\r\n            \"value\": \"1234.4568\"\r\n        }\r\n    ],\r\n    \"active\": true,\r\n    \"type\": [\r\n        {\r\n            \"coding\": [\r\n                {\r\n                    \"system\": \"http://nictiz.nl/fhir/NamingSystem/organization-typez\",\r\n                    \"code\": \"G5\",\r\n                    \"display\": \"Geestelijke Gezondheidszorg\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"name\": \"organization 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/Organization",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"Organization"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Create Patient 1",
 					"event": [
@@ -94,7 +256,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"resourceType\": \"Patient\",\r\n    \"identifier\": [\r\n        {\r\n            \"system\": \"http://someidentfier\",\r\n            \"value\": \"1233\"\r\n        }\r\n    ],\r\n    \"active\": true,\r\n    \"name\": [\r\n        {\r\n            \"family\": \"Doe\",\r\n            \"given\": [ \"Jane\" ]\r\n        }\r\n    ],\r\n    \"telecom\": [\r\n        {\r\n            \"system\": \"email\",\r\n            \"value\": \"janedoe@gmail.com\",\r\n            \"use\": \"home\"\r\n        }\r\n    ],\r\n    \"gender\": \"female\",\r\n    \"birthDate\": \"1974-08-16\",\r\n    \"managingOrganization\": {\r\n        \"reference\": \"Organization/901124e7-5983-4aba-881d-5808f5ae39ed\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"resourceType\": \"Patient\",\r\n    \"identifier\": [\r\n        {\r\n            \"system\": \"http://someidentfier\",\r\n            \"value\": \"1239\"\r\n        }\r\n    ],\r\n    \"active\": true,\r\n    \"name\": [\r\n        {\r\n            \"family\": \"Doe\",\r\n            \"given\": [ \"Jane\" ]\r\n        }\r\n    ],\r\n    \"telecom\": [\r\n        {\r\n            \"system\": \"email\",\r\n            \"value\": \"janedoe@gmail.com\",\r\n            \"use\": \"home\"\r\n        }\r\n    ],\r\n    \"gender\": \"female\",\r\n    \"birthDate\": \"1974-08-16\",\r\n    \"managingOrganization\": {\r\n        \"reference\": \"Organization/{{organization1_id}}\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -493,13 +655,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseurl}}/Organization/901124e7-5983-4aba-881d-5808f5ae39ed",
+							"raw": "{{baseurl}}/Organization/{{organization1_id}}",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
 								"Organization",
-								"901124e7-5983-4aba-881d-5808f5ae39ed"
+								"{{organization1_id}}"
 							]
 						}
 					},
@@ -517,12 +679,18 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseurl}}/Task",
+							"raw": "{{baseurl}}/Task?_elements=id,identifier,for",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
 								"Task"
+							],
+							"query": [
+								{
+									"key": "_elements",
+									"value": "id,identifier,for"
+								}
 							]
 						}
 					},
@@ -572,6 +740,44 @@
 					"response": []
 				},
 				{
+					"name": "Update Task (fails on Patient)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/fhir+json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "return=representation",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"resourceType\": \"Task\",\r\n    \"id\": \"{{task1_id}}\",\r\n    \"meta\": {\r\n        \"profile\": [\r\n            \"http://koppeltaal.nl/fhir/StructureDefinition/KT2Task\"\r\n        ],\r\n        \"lastUpdated\": \"2023-04-11T15:17:43Z\",\r\n        \"versionId\": \"1\"\r\n    },\r\n    \"identifier\": [\r\n        {\r\n            \"system\": \"https://TaskSystem\",\r\n            \"value\": \"12345\"\r\n        }\r\n    ],\r\n    \"instantiatesCanonical\": \"https://intkt2-sprint-7.minddistrict.dev/catalogue/6bea89a73b3d48d0963d627d93d071c2|1.0\",\r\n    \"description\": \"Releaving stress using mindfulness\",\r\n    \"for\": {\r\n        \"reference\": \"Patient/7d823b2d-d605-46e5-baa7-a19db9a41168\",\r\n        \"type\": \"Patient\"\r\n    },\r\n    \"intent\": \"order\",\r\n    \"priority\": \"routine\",\r\n    \"code\": {\r\n        \"coding\": [\r\n            {\r\n                \"system\": \"http://hl7.org/fhir/CodeSystem/task-code\",\r\n                \"code\": \"fulfill\"\r\n            }\r\n        ]\r\n    },\r\n    \"executionPeriod\": {\r\n        \"start\": \"2021-01-11T08:25:05+10:00\",\r\n        \"end\": \"2021-01-12T08:25:05+10:00\"\r\n    },\r\n    \"requester\": {\r\n        \"identifier\": {\r\n            \"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n            \"value\": \"1740715473\"\r\n        },\r\n        \"type\": \"Practitioner\"\r\n    },\r\n    \"owner\": {\r\n        \"reference\": \"Patient?identifier=https://TaskSystem|12345\",\r\n        \"type\": \"Patient\",\r\n        \"display\": \"(not-found)\"\r\n    },\r\n    \"status\": \"requested\",\r\n    \"authoredOn\": \"2020-12-31T08:25:05+10:00\",\r\n    \"lastModified\": \"2020-12-31T09:45:05+10:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/Task/{{task1_id}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"Task",
+								"{{task1_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update Task (fails on missing logical reference.type)",
 					"request": {
 						"method": "PUT",
@@ -589,7 +795,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"resourceType\": \"Task\",\r\n    \"id\": \"{{task1_id}}\",\r\n    \"meta\": {\r\n        \"profile\": [\r\n            \"http://koppeltaal.nl/fhir/StructureDefinition/KT2Task\"\r\n        ],\r\n        \"lastUpdated\": \"2023-04-11T15:17:43Z\",\r\n        \"versionId\": \"1\"\r\n    },\r\n    \"identifier\": [\r\n        {\r\n            \"system\": \"https://TaskSystem\",\r\n            \"value\": \"12345\"\r\n        }\r\n    ],\r\n    \"instantiatesCanonical\": \"https://intkt2-sprint-7.minddistrict.dev/catalogue/6bea89a73b3d48d0963d627d93d071c2|1.0\",\r\n    \"description\": \"Releaving stress using mindfulness\",\r\n    \"for\": {\r\n        \"reference\": \"Patient/7d823b2d-d605-46e5-baa7-a19db9a41168\",\r\n        \"type\": \"Patient\"\r\n    },\r\n    \"intent\": \"order\",\r\n    \"priority\": \"routine\",\r\n    \"code\": {\r\n        \"coding\": [\r\n            {\r\n                \"system\": \"http://hl7.org/fhir/CodeSystem/task-code\",\r\n                \"code\": \"fulfill\"\r\n            }\r\n        ]\r\n    },\r\n    \"executionPeriod\": {\r\n        \"start\": \"2021-01-11T08:25:05+10:00\",\r\n        \"end\": \"2021-01-12T08:25:05+10:00\"\r\n    },\r\n    \"requester\": {\r\n        \"identifier\": {\r\n            \"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n            \"value\": \"1740715473\"\r\n        }\r\n    },\r\n    \"owner\": {\r\n        \"reference\": \"Patient?identifier=https://TaskSystem|12345\",\r\n        \"type\": \"Patient\",\r\n        \"display\": \"(not-found)\"\r\n    },\r\n    \"status\": \"requested\",\r\n    \"authoredOn\": \"2020-12-31T08:25:05+10:00\",\r\n    \"lastModified\": \"2020-12-31T09:45:05+10:00\"\r\n}",
+							"raw": "{\r\n    \"resourceType\": \"Task\",\r\n    \"id\": \"{{task1_id}}\",\r\n    \"meta\": {\r\n        \"profile\": [\r\n            \"http://koppeltaal.nl/fhir/StructureDefinition/KT2Task\"\r\n        ],\r\n        \"lastUpdated\": \"2023-04-11T15:17:43Z\",\r\n        \"versionId\": \"1\"\r\n    },\r\n    \"identifier\": [\r\n        {\r\n            \"system\": \"https://TaskSystem\",\r\n            \"value\": \"12345\"\r\n        }\r\n    ],\r\n    \"instantiatesCanonical\": \"https://intkt2-sprint-7.minddistrict.dev/catalogue/6bea89a73b3d48d0963d627d93d071c2|1.0\",\r\n    \"description\": \"Releaving stress using mindfulness\",\r\n    \"for\": {\r\n        \"reference\": \"Patient/7d823b2d-d605-46e5-baa7-a19db9a41168\",\r\n        \"type\": \"Patient\"\r\n    },\r\n    \"intent\": \"order\",\r\n    \"priority\": \"routine\",\r\n    \"code\": {\r\n        \"coding\": [\r\n            {\r\n                \"system\": \"http://hl7.org/fhir/CodeSystem/task-code\",\r\n                \"code\": \"fulfill\"\r\n            }\r\n        ]\r\n    },\r\n    \"executionPeriod\": {\r\n        \"start\": \"2021-01-11T08:25:05+10:00\",\r\n        \"end\": \"2021-01-12T08:25:05+10:00\"\r\n    },\r\n    \"requester\": {\r\n        \"identifier\": {\r\n            \"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n            \"value\": \"1740715473\"\r\n        }\r\n    },\r\n    \"owner\": {\r\n        \"reference\": \"Patient?identifier=https://TaskSystem|1233\",\r\n        \"type\": \"Patient\"\r\n    },\r\n    \"status\": \"requested\",\r\n    \"authoredOn\": \"2020-12-31T08:25:05+10:00\",\r\n    \"lastModified\": \"2020-12-31T09:45:05+10:00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -627,7 +833,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"resourceType\": \"Task\",\r\n    \"id\": \"{{task1_id}}\",\r\n    \"meta\": {\r\n        \"profile\": [\r\n            \"http://koppeltaal.nl/fhir/StructureDefinition/KT2Task\"\r\n        ],\r\n        \"lastUpdated\": \"2023-04-11T15:17:43Z\",\r\n        \"versionId\": \"1\"\r\n    },\r\n    \"identifier\": [\r\n        {\r\n            \"system\": \"https://TaskSystem\",\r\n            \"value\": \"12345\"\r\n        }\r\n    ],\r\n    \"instantiatesCanonical\": \"https://intkt2-sprint-7.minddistrict.dev/catalogue/6bea89a73b3d48d0963d627d93d071c2|1.0\",\r\n    \"description\": \"Releaving stress using mindfulness\",\r\n    \"for\": {\r\n        \"reference\": \"Patient/7d823b2d-d605-46e5-baa7-a19db9a41168\",\r\n        \"type\": \"Patient\"\r\n    },\r\n    \"intent\": \"order\",\r\n    \"priority\": \"routine\",\r\n    \"code\": {\r\n        \"coding\": [\r\n            {\r\n                \"system\": \"http://hl7.org/fhir/CodeSystem/task-code\",\r\n                \"code\": \"fulfill\"\r\n            }\r\n        ]\r\n    },\r\n    \"executionPeriod\": {\r\n        \"start\": \"2021-01-11T08:25:05+10:00\",\r\n        \"end\": \"2021-01-12T08:25:05+10:00\"\r\n    },\r\n    \"requester\": {\r\n        \"identifier\": {\r\n            \"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n            \"value\": \"1740715473\"\r\n        },\r\n        \"type\": \"Practitioner\"\r\n    },\r\n    \"owner\": {\r\n        \"reference\": \"Patient?identifier=https://TaskSystem|12345\",\r\n        \"type\": \"Patient\",\r\n        \"display\": \"(not-found)\"\r\n    },\r\n    \"status\": \"requested\",\r\n    \"authoredOn\": \"2020-12-31T08:25:05+10:00\",\r\n    \"lastModified\": \"2020-12-31T09:45:05+10:00\"\r\n}",
+							"raw": "{\r\n    \"resourceType\": \"Task\",\r\n    \"id\": \"{{task1_id}}\",\r\n    \"meta\": {\r\n        \"profile\": [\r\n            \"http://koppeltaal.nl/fhir/StructureDefinition/KT2Task\"\r\n        ],\r\n        \"lastUpdated\": \"2023-04-11T15:17:43Z\",\r\n        \"versionId\": \"1\"\r\n    },\r\n    \"identifier\": [\r\n        {\r\n            \"system\": \"https://TaskSystem\",\r\n            \"value\": \"12345\"\r\n        }\r\n    ],\r\n    \"instantiatesCanonical\": \"https://intkt2-sprint-7.minddistrict.dev/catalogue/6bea89a73b3d48d0963d627d93d071c2|1.0\",\r\n    \"description\": \"Releaving stress using mindfulness\",\r\n    \"for\": {\r\n        \"reference\": \"Patient/7d823b2d-d605-46e5-baa7-a19db9a41168\",\r\n        \"type\": \"Patient\"\r\n    },\r\n    \"intent\": \"order\",\r\n    \"priority\": \"routine\",\r\n    \"code\": {\r\n        \"coding\": [\r\n            {\r\n                \"system\": \"http://hl7.org/fhir/CodeSystem/task-code\",\r\n                \"code\": \"fulfill\"\r\n            }\r\n        ]\r\n    },\r\n    \"executionPeriod\": {\r\n        \"start\": \"2021-01-11T08:25:05+10:00\",\r\n        \"end\": \"2021-01-12T08:25:05+10:00\"\r\n    },\r\n    \"requester\": {\r\n        \"identifier\": {\r\n            \"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n            \"value\": \"1740715473x\"\r\n        },\r\n        \"type\": \"Practitioner\"\r\n    },\r\n    \"owner\": {\r\n        \"reference\": \"Patient?identifier=http://someidentfier|1233\",\r\n        \"type\": \"Patient\"\r\n    },\r\n    \"status\": \"requested\",\r\n    \"authoredOn\": \"2020-12-31T08:25:05+10:00\",\r\n    \"lastModified\": \"2020-12-31T09:45:05+10:00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -724,86 +930,6 @@
 					"response": []
 				},
 				{
-					"name": "ActivityDefinition 2 create (fails on endpoint reference in extension)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201 or 422\", () => {\r",
-									"  if (pm.expect(pm.response.code).to.be.oneOf([201,422]))\r",
-									"  {\r",
-									"    var jsonData = JSON.parse(responseBody);\r",
-									"\r",
-									"    if (pm.response.code == 201)\r",
-									"    {\r",
-									"        pm.collectionVariables.set(\"activitydefinition_id\", jsonData.id);\r",
-									"        pm.collectionVariables.set(\"activitydefinition_etag\", pm.response.headers.get(\"ETag\"));\r",
-									"    }\r",
-									"\r",
-									"    if (pm.response.code == 422)\r",
-									"    {\r",
-									"        pm.test(\"duplicate\", function () {\r",
-									"            if (pm.expect(jsonData.issue[0].code).exist.and.equals(\"duplicate\"))\r",
-									"            {\r",
-									"                pm.collectionVariables.set(\"activitydefinition_id\", jsonData.issue[0].details.text.substring(142, 178));\r",
-									"                console.log(pm.collectionVariables.get(\"activitydefinition_id\"));\r",
-									"            }\r",
-									"        });\r",
-									"    }\r",
-									"  }\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"content-type": true
-						}
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/fhir+json",
-								"type": "default"
-							},
-							{
-								"key": "Prefer",
-								"value": "return=representation",
-								"type": "default"
-							},
-							{
-								"key": "X-Trace-Id",
-								"value": "ef0d8ddc-9444-41f5-b493-00d07cd7c51f",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"resourceType\": \"ActivityDefinition\",\r\n    \"meta\": {\r\n        \"profile\": [\r\n            \"http://koppeltaal.nl/fhir/StructureDefinition/KT2ActivityDefinition\"\r\n        ]\r\n    },\r\n    \"extension\": [\r\n        {\r\n            \"url\": \"http://koppeltaal.nl/fhir/StructureDefinition/KT2EndpointExtension\",\r\n            \"valueReference\": {\r\n                \"reference\": \"Endpoint/xxxx\",\r\n                \"type\": \"Endpoint\"\r\n            }\r\n        },\r\n        {\r\n            \"url\": \"http://koppeltaal.nl/fhir/StructureDefinition/KT2PublisherIdentifier\",\r\n            \"valueId\": \"ID1234-001\"\r\n        }\r\n    ],\r\n    \"url\": \"https://intkt2-sprint-7.minddistrict.dev/catalogue/6bea89a73b3d48d0963d627d93d071c2\",\r\n    \"identifier\": [\r\n        {\r\n            \"use\": \"official\",\r\n            \"system\": \"http://ns.minddistrict.com/content/id\",\r\n            \"value\": \"6bea89a73b3d48d0963d627d93d071c2\"\r\n        }\r\n    ],\r\n    \"version\": \"1.0\",\r\n    \"name\": \"Piekermoment-md-6bea89a73b3d48d0963d627d93d071c2\",\r\n    \"title\": \"Piekermoment (md)\",\r\n    \"status\": \"active\",\r\n    \"description\": \"In dit dagboek wordt per piekermoment geregistreerd over welk onderwerp werd gepiekerd, welke piekergedachten er voorkwamen en wat hielp om te stoppen met piekeren. \"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseurl}}/ActivityDefinition",
-							"host": [
-								"{{baseurl}}"
-							],
-							"path": [
-								"ActivityDefinition"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "ActivityDefinition 2 create (succeeds)",
 					"event": [
 						{
@@ -890,27 +1016,9 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 201 or 422\", () => {\r",
-									"  if (pm.expect(pm.response.code).to.be.oneOf([201,422]))\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"  if (pm.expect(pm.response.code).to.be.oneOf([200]))\r",
 									"  {\r",
-									"    var jsonData = JSON.parse(responseBody);\r",
-									"\r",
-									"    if (pm.response.code == 201)\r",
-									"    {\r",
-									"        pm.collectionVariables.set(\"activitydefinition_id\", jsonData.id);\r",
-									"        pm.collectionVariables.set(\"activitydefinition_etag\", pm.response.headers.get(\"ETag\"));\r",
-									"    }\r",
-									"\r",
-									"    if (pm.response.code == 422)\r",
-									"    {\r",
-									"        pm.test(\"duplicate\", function () {\r",
-									"            if (pm.expect(jsonData.issue[0].code).exist.and.equals(\"duplicate\"))\r",
-									"            {\r",
-									"                pm.collectionVariables.set(\"activitydefinition_id\", jsonData.issue[0].details.text.substring(142, 178));\r",
-									"                console.log(pm.collectionVariables.get(\"activitydefinition_id\"));\r",
-									"            }\r",
-									"        });\r",
-									"    }\r",
 									"  }\r",
 									"});"
 								],
@@ -1021,7 +1129,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"resourceType\": \"Task\",\r\n    \"meta\": {\r\n        \"profile\": [\r\n            \"http://koppeltaal.nl/fhir/StructureDefinition/KT2Task\"\r\n        ],\r\n        \"lastUpdated\": \"2023-04-11T15:17:43Z\",\r\n        \"versionId\": \"1\"\r\n    },\r\n    \"identifier\": [\r\n        {\r\n            \"system\": \"https://TaskSystem\",\r\n            \"value\": \"12345-2\"\r\n        }\r\n    ],\r\n    \"instantiatesCanonical\": \"https://mygames.com/veryserious|1.0\",\r\n    \"description\": \"Releaving stress using mindfulness\",\r\n    \"for\": {\r\n        \"reference\": \"Patient/{{patient2_id}}\"\r\n    },\r\n    \"intent\": \"order\",\r\n    \"priority\": \"routine\",\r\n    \"code\": {\r\n        \"coding\": [\r\n            {\r\n                \"system\": \"http://hl7.org/fhir/CodeSystem/task-code\",\r\n                \"code\": \"fulfill\"\r\n            }\r\n        ]\r\n    },\r\n    \"executionPeriod\": {\r\n        \"start\": \"2021-01-11T08:25:05+10:00\",\r\n        \"end\": \"2021-01-12T08:25:05+10:00\"\r\n    },\r\n    \"requester\": {\r\n        \"identifier\": {\r\n            \"system\": \"http://fhir.nl/fhir/NamingSystem/agb-z\",\r\n            \"value\": \"PRAC9087654321\"\r\n        },\r\n        \"type\": \"Practitioner\"\r\n    },\r\n    \"owner\": {\r\n        \"reference\": \"Patient?identifier=http://irma.app|mvdstoep@vzvz.nl\"\r\n    },\r\n    \"status\": \"requested\",\r\n    \"authoredOn\": \"2020-12-31T08:25:05+10:00\",\r\n    \"lastModified\": \"2020-12-31T09:45:05+10:00\"\r\n}",
+							"raw": "{\r\n    \"resourceType\": \"Task\",\r\n    \"meta\": {\r\n        \"profile\": [\r\n            \"http://koppeltaal.nl/fhir/StructureDefinition/KT2Task\"\r\n        ],\r\n        \"lastUpdated\": \"2023-04-11T15:17:43Z\",\r\n        \"versionId\": \"1\"\r\n    },\r\n    \"identifier\": [\r\n        {\r\n            \"system\": \"https://TaskSystem\",\r\n            \"value\": \"12345-2\"\r\n        }\r\n    ],\r\n    \"instantiatesCanonical\": \"https://intkt2-sprint-7.minddistrict.dev/catalogue/6bea89a73b3d48d0963d627d93d071c2\",\r\n    \"description\": \"Releaving stress using mindfulness\",\r\n    \"for\": {\r\n        \"reference\": \"Patient/{{patient1_id}}\"\r\n    },\r\n    \"intent\": \"order\",\r\n    \"priority\": \"routine\",\r\n    \"code\": {\r\n        \"coding\": [\r\n            {\r\n                \"system\": \"http://hl7.org/fhir/CodeSystem/task-code\",\r\n                \"code\": \"fulfill\"\r\n            }\r\n        ]\r\n    },\r\n    \"executionPeriod\": {\r\n        \"start\": \"2021-01-11T08:25:05+10:00\",\r\n        \"end\": \"2021-01-12T08:25:05+10:00\"\r\n    },\r\n    \"requester\": {\r\n        \"identifier\": {\r\n            \"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\t\"value\": \"1740715473\"\r\n        },\r\n        \"type\": \"Practitioner\"\r\n    },\r\n    \"owner\": {\r\n        \"reference\": \"Patient?identifier=http://someidentfier|1239\"\r\n    },\r\n    \"status\": \"requested\",\r\n    \"authoredOn\": \"2020-12-31T08:25:05+10:00\",\r\n    \"lastModified\": \"2020-12-31T09:45:05+10:00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1105,38 +1213,9 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 201 or 422\", () => {\r",
-									"  if (pm.expect(pm.response.code).to.be.oneOf([201,422]))\r",
+									"pm.test(\"Status code is 200 or 422\", () => {\r",
+									"  if (pm.expect(pm.response.code).to.be.oneOf([200,422]))\r",
 									"  {\r",
-									"    var jsonData = JSON.parse(responseBody);\r",
-									"\r",
-									"    if (pm.response.code == 201)\r",
-									"    {\r",
-									"        pm.test(\"id is present\", function () {\r",
-									"            if (pm.expect(jsonData.id).exist)\r",
-									"            {\r",
-									"                pm.collectionVariables.set(\"task1_id\", jsonData.id);\r",
-									"            }\r",
-									"        });\r",
-									"\r",
-									"        pm.test(\"ETag header is present\", function () {\r",
-									"            if (pm.response.to.have.header(\"ETag\"))\r",
-									"            {\r",
-									"                pm.collectionVariables.set(\"task1_etag\", pm.response.headers.get(\"ETag\"));\r",
-									"            }\r",
-									"        });\r",
-									"    }\r",
-									"\r",
-									"    if (pm.response.code == 422)\r",
-									"    {\r",
-									"        pm.test(\"duplicate\", function () {\r",
-									"        if (pm.expect(jsonData.issue[0].code).exist.and.equals(\"duplicate\"))\r",
-									"        {\r",
-									"            pm.collectionVariables.set(\"task1_id\", jsonData.issue[0].details.text.split(\"'\")[5]);\r",
-									"            console.log(pm.collectionVariables.get(\"task1_id\"));\r",
-									"        }\r",
-									"        });\r",
-									"    }\r",
 									"  }\r",
 									"});"
 								],
@@ -1337,6 +1416,10 @@
 		},
 		{
 			"key": "activitydefinition2_etag",
+			"value": ""
+		},
+		{
+			"key": "patient1_etag",
 			"value": ""
 		}
 	]
