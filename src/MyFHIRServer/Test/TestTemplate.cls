@@ -1,4 +1,4 @@
-Class Sample.TestTemplate
+Class MyFHIRServer.Test.TestTemplate
 {
 
 /// Description
