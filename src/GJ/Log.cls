@@ -5,6 +5,7 @@ Class GJ.Log Extends %CSP.Page
 
 /// Quick'n'Dirty
 /// http://localhost:52773/csp/healthshare/fhir/GJ.Log.cls
+/// enabled using: set ^FSLogChannel("all") = 1
 ClassMethod OnPage() As %Status [ ServerOnly = 1 ]
 {
 	&html<<html>

@@ -11,10 +11,8 @@
       <Resource Name="HS.Local.FHIRServer.PKG"/>
 			<Resource Name="Install.PKG"/>
       <Resource Name="MyFHIRServer.PKG"/>
-			<FileCopy Name="data/fhir/" Target="${mgrdir}test-data-fhir/"/>
       <FileCopy Name="patientDiv.html" Target="${mgrdir}FHIR/"/>
       <Resource Name="GJ.PKG"/>
-			<CSPApplication Url="/fhirUI" SourcePath="/fhirUI" DeployPath="{$cspdir}/fhirUI" ServeFiles="1" Recurse="1" CookiePath="/fhirUI"/>
 			<Invokes>
 				<Invoke Class="Install.Install" Method="SetupFHIRServer" Phase="Activate" When="After"/>
 			</Invokes>
