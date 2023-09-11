@@ -24,6 +24,7 @@ This repo can be run using docker compose.
 
 After starting, you can access the following URLs:
 - Management Portal at http://localhost:32783/csp/sys/UtilHome.csp?$NAMESPACE=FHIR
+- You can fetch the FHIR metadata at http://localhost:32783/fhir/r4/metadata?_format=application/fhir%2Bjson 
 - Import and run the [Postman collection](https://github.com/intersystems/SamplesCustomizingYourFHIRRepo/blob/2718e8db7973206cacbb4ffdd2c05e91e5d033b3/My%20Customized%20FHIR%20Server.postman_collection.json) 
 - You can view the FSLog global using http://localhost:32783/csp/healthshare/fhir/GJ.Log.cls
 
