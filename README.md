@@ -20,12 +20,12 @@ The use cases addressed with the code in this repo are:
 These use cases are further explained in the accompanying presentation (to be added to this repo).
 
 ## Set Up
-No docker has been provided as part of this repo. It is recommended that you connect to a local InterSystems IRIS instance and import / compile.
+This repo can be run using docker compose. 
 
-Create a new FHIR Server in this namespace with the following settings:
-	-Core FHIR package: hl7.fhir.r4.core@4.0.1
-	-Additional packages: MyFhirServer-searchparameters@0.0.1
-	-Interactions strategy class: HS.Local.FHIRServer.Storage.Json.InteractionsStrategy
+After starting, you can access the following URLs:
+- Management Portal at http://localhost:32783/csp/sys/UtilHome.csp?$NAMESPACE=FHIR
+- Import and run the [Postman collection](https://github.com/intersystems/SamplesCustomizingYourFHIRRepo/blob/2718e8db7973206cacbb4ffdd2c05e91e5d033b3/My%20Customized%20FHIR%20Server.postman_collection.json) 
+- You can view the FSLog global using http://localhost:32783/csp/healthshare/fhir/GJ.Log.cls
 
 ## Run the Sample
 A [Postman collection](https://github.com/intersystems/SamplesCustomizingYourFHIRRepo/blob/2718e8db7973206cacbb4ffdd2c05e91e5d033b3/My%20Customized%20FHIR%20Server.postman_collection.json) is available to test the customizations
