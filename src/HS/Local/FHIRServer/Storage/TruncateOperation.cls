@@ -34,7 +34,7 @@ ClassMethod AddSupportedOperations(pMap As %DynamicObject)
 {
     if ..IsTruncateAllowed()
     {
-    	Do pMap.%Set("truncate", "http://MyFHIRServer/fhir/OperationDefinition/Truncate")
+    	do pMap.%Set("truncate", "http://MyFHIRServer/fhir/OperationDefinition/Truncate")
     }
 }
 

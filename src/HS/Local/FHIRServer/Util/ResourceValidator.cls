@@ -30,7 +30,7 @@ Method ValidateObject(pFHIRObject As %Library.DynamicObject, pFHIRTypename As %S
     set pIsInTransaction = 1 // *** CUSTOM CODE that allows conditional references outside transactions
 
 	// Loop through all the properties in the object
-	Do {
+	do {
 		// [DEV NOTE]
 		// The 'usage' object is used to identify conflicting property names for value types
 		// It is also used to ensure that extensions are properly handled.  When a property is
@@ -225,7 +225,7 @@ Method ValidateObject(pFHIRObject As %Library.DynamicObject, pFHIRTypename As %S
 								Set matcher = ..matchers.GetAt(patternStr)
 								if matcher="" {
 									Set matcher = ##class(%Regex.Matcher).%New(patternStr)
-									Do ..matchers.SetAt(matcher, patternStr)
+									do ..matchers.SetAt(matcher, patternStr)
 								}
 								// Check the value against the regular expression	
 								if matcher.Match(ref) {
@@ -259,7 +259,7 @@ Method ValidateObject(pFHIRObject As %Library.DynamicObject, pFHIRTypename As %S
 									Set matcher = ..matchers.GetAt(patternStr)
 									if matcher="" {
 										Set matcher = ##class(%Regex.Matcher).%New(patternStr)
-										Do ..matchers.SetAt(matcher, patternStr)
+										do ..matchers.SetAt(matcher, patternStr)
 									}
 									// Check the value against the regular expression
 									if 'matcher.Match(ref) {
@@ -393,7 +393,7 @@ Method ValidateObject(pFHIRObject As %Library.DynamicObject, pFHIRTypename As %S
 							// Hack to work around a bad (sub-optimal) Regex in the R3 metaAPI
 							Set usePatternStr = $Select(patternStr="[^\s]+([\s]?[^\s]+)*":"[^\s]+(\s[^\s]+)*", 1:patternStr)
 							Set matcher = ##class(%Regex.Matcher).%New(usePatternStr)
-							Do ..matchers.SetAt(matcher, patternStr)					
+							do ..matchers.SetAt(matcher, patternStr)					
 						}
 						// Check the value against a regular expression	
 						if 'matcher.Match(tData) {

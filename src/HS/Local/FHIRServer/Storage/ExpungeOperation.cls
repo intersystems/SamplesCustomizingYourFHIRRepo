@@ -7,7 +7,7 @@ Class HS.Local.FHIRServer.Storage.ExpungeOperation
 /// @API Enumerate the name and url of each Operation supported by this class
 ClassMethod AddSupportedOperations(pMap As %DynamicObject)
 {
-	Do pMap.%Set("expunge", "http://MyFHIRServer/fhir/OperationDefinition/Expunge")
+	do pMap.%Set("expunge", "http://MyFHIRServer/fhir/OperationDefinition/Expunge")
 }
 
 /// Type-level $Expunge operation is not supported
@@ -171,7 +171,7 @@ ClassMethod GetExpungeParameters(parameters As %DynamicArray, issues As %Dynamic
         }
         else
         {
-            Do ..LogUnsupportedParameter(entry.name, issues)
+            do ..LogUnsupportedParameter(entry.name, issues)
         }
     }
 

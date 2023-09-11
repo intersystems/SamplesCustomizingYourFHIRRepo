@@ -5,9 +5,9 @@ Class HS.Local.FHIRServer.Storage.BuiltInOperations Extends (HS.FHIRServer.Stora
 /// @API Enumerate the name and url of each Operation supported by this class
 ClassMethod AddSupportedOperations(pMap As %DynamicObject)
 {
-	Do ##class(HS.FHIRServer.Storage.BuiltIn.Validate).AddSupportedOperations(pMap)
-	Do ##class(HS.Local.FHIRServer.Storage.ExpungeOperation).AddSupportedOperations(pMap)
-	Do ##class(HS.Local.FHIRServer.Storage.TruncateOperation).AddSupportedOperations(pMap)
+	do ##class(HS.FHIRServer.Storage.BuiltIn.Validate).AddSupportedOperations(pMap)
+	do ##class(HS.Local.FHIRServer.Storage.ExpungeOperation).AddSupportedOperations(pMap)
+	do ##class(HS.Local.FHIRServer.Storage.TruncateOperation).AddSupportedOperations(pMap)
 }
 
 }
