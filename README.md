@@ -1,5 +1,5 @@
 # Customizing Your InterSystems FHIR Repo Sample
-This respository provides sample code that shows how you can customize the InterSystems IRIS for Health FHIR Repository.
+This repository provides sample code that shows how you can customize the InterSystems IRIS for Health FHIR Repository.
 It was originally created along with a presentation delivered at InterSystems Global Summit 2023.
 
 ## Why customize InterSystems IRIS for Health FHIR Repository
