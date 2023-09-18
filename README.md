@@ -58,17 +58,25 @@ A [Postman collection](https://github.com/intersystems/SamplesCustomizingYourFHI
 ## Documentation
 The following InterSystems IRIS for Health Documentation is helpful as background information:
 
+**The InterSystems IRIS for Health FHIR Repository**
+
 [FHIR Server: An Introduction](https://docs.intersystems.com/irisforhealth20231/csp/docbook/Doc.View.cls?KEY=HXFHIR_server_intro)
 
 [Customizing a FHIR Server](https://docs.intersystems.com/irisforhealth20231/csp/docbook/DocBook.UI.Page.cls?KEY=HXFHIR_server_customize_arch)
 
-The FHIR specification
+**The FHIR specification**
 
 [RESTful API](https://hl7.org/fhir/R4/http.html)
 
 [Search](https://hl7.org/fhir/R4/search.html)
 
 [References](https://hl7.org/fhir/R4/references.html)
+
+**Background for Programmers**
+
+[Using ObjectScript](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=GCOS_intro)
+
+[Using Embedded Python](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=AFL_epython)
 
 ## Bugslist
 There are no known bugs at this point in time
