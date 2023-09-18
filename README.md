@@ -14,26 +14,22 @@ hese are a number of examples of why you would customize your InterSystems IRIS 
 
 ## Use cases
 In this repo we have addresses the following use cases:
-1. Input – pre-processing
-- By default, the InterSystems IRIS for Health FHIR Repository assigns an incrementing sequence number to each resource instance, which is good enough in many cases. We show you how to replace that with a GUID 
-- FHIR uses Identifiers to uniquely identify FHIR Resources. We have implemented code that ensures that the same identifier cannot be reused for another resource instance.
+1. Pre-processing
+   - By default, the InterSystems IRIS for Health FHIR Repository assigns an incrementing sequence number to each resource instance, which is good enough in many cases. We show you how to replace that with a GUID 
+   - FHIR uses Identifiers to uniquely identify FHIR Resources. We have implemented code that ensures that the same identifier cannot be reused for another resource instance.
 
-2. Output – post-processing
+2. Post-processing
 This repo shows various things you can do to enrich resources before these are returned, specifically:
-- Reference.display is defined as "Plain text narrative that identifies the resource in addition to the resource reference.". This repo adds some code in which we add a display value for each reference, so that external systems / users get more information about referenced resources without having to read that resource.
-- Resource.text is defined as "A human-readable narrative that contains a summary of the resource and can be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it "clinically safe" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety." We have provided a structure that you can use to dynamically pouplate Resource.txt using plain Objectscript or Pythoin code, or using a Jinja2 template.
-- The FHIR specification defines Resource oproperties in a certain order. At the same time json has no defined property order. During development and testing I found it of great help to re-order json proerties as defined in the specification (resourceType, id, meta, text, extension). 
+   - Reference.display is defined as "Plain text narrative that identifies the resource in addition to the resource reference.". This repo adds some code in which we add a display value for each reference, so that external systems / users get more information about referenced resources without having to read that resource.
+   - Resource.text is defined as "A human-readable narrative that contains a summary of the resource and can be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it "clinically safe" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety." We have provided a structure that you can use to dynamically pouplate Resource.txt using plain Objectscript or Pythoin code, or using a Jinja2 template.
+   - The FHIR specification defines Resource oproperties in a certain order. At the same time json has no defined property order. During development and testing I found it of great help to re-order json proerties as defined in the specification (resourceType, id, meta, text, extension). 
 
 3. References
-In HL7 FHI, resources use Reference properties to link to other resources. Just like in Relational Databases, it makes sense that a FHIR Repository ensures Referential Integrity for those references. For example, when you create an Observation with a reference to a specific Patient resource, the FHIR Repository should first ensure that this Patient resource exists. Turning this around, it should also not be possible to delete a resource while there are still other resources that depend on it! 
+In HL7 FHI, resources use Reference properties to link to other resources. Just like in Relational Databases, it makes sense that a FHIR Repository ensures Referential Integrity for those references. For example, when you create an Observation with a reference to a specific Patient resource, the FHIR Repository should first ensure that this Patient resource exists. Turning this around, it should also not be possible to delete a resource while there are still other resources that depend on it! In this repo, we have implemented:
+   - Referential Integrity for create, update and delete
 
-In this repo, we have implemented Referential Integrity for create, update and delete
-
-In addition to the frequently used literal references, FHIR supports other resource stypes, e.g.:
-- Logical references, where you refer to another resources using a (unique) identifier
-- Conditional references, described as something to be used inside a Transaction Bundle, but actually useful outside Bundles
- In our case, we transfer these other reference types into a literal reference
-
+   - Processing of logical and conditional references by adding the literal reference.
+ 
 ## Set Up
 This repo can be run using docker compose:
 
