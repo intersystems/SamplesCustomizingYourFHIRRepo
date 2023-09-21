@@ -25,7 +25,7 @@ This repo shows various things you can do to enrich resources before these are r
    - The FHIR specification defines Resource oproperties in a certain order. At the same time json has no defined property order. During development and testing I found it of great help to re-order json proerties as defined in the specification (resourceType, id, meta, text, extension). 
 
 3. References
-In HL7 FHI, resources use Reference properties to link to other resources. Just like in Relational Databases, it makes sense that a FHIR Repository ensures Referential Integrity for those references. For example, when you create an Observation with a reference to a specific Patient resource, the FHIR Repository should first ensure that this Patient resource exists. Turning this around, it should also not be possible to delete a resource while there are still other resources that depend on it! In this repo, we have implemented:
+In HL7 FHIR, resources use Reference properties to link to other resources. Just like in Relational Databases, it makes sense that a FHIR Repository ensures Referential Integrity for those references. For example, when you create an Observation with a reference to a specific Patient resource, the FHIR Repository should first ensure that this Patient resource exists. Turning this around, it should also not be possible to delete a resource while there are still other resources that depend on it! In this repo, we have implemented:
    - Referential Integrity for create, update and delete
 
    - Processing of logical and conditional references by adding the literal reference.
