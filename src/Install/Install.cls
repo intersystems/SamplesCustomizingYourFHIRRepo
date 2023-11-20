@@ -73,6 +73,7 @@ ClassMethod SetupFHIRServer(namespace As %String = {..#Namespace}) As %Status
 
 		// Enable logging (see https://docs.intersystems.com/irisforhealthlatest/csp/docbook/DocBook.UI.Page.cls?KEY=HXFHIR_server_debugMaintain)
 		set ^FSLogChannel("all") = 1
+		set ^HS.FHIRServer("dev") = 1 // enable new tile!
 		// You can now view the ^FSLog using 
 		// http://localhost:32783/csp/healthshare/fhir/GJ.Log.cls
     }

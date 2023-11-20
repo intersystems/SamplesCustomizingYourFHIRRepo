@@ -44,7 +44,8 @@ After starting, you can access the following URLs:
 ## Using $$$FSLog()
 This repo enables $$$FSLog after creating the FHIR Repository through the command 
 
-    `set ^FSLogChannel("all") = 1`
+   `set ^FSLogChannel("all") = 1`
+   `set ^HS.FHIRServer("dev") = 1`
 
 You can view the FSLog global using http://localhost:32783/csp/healthshare/fhir/GJ.Log.cls
 
