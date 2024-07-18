@@ -1,5 +1,5 @@
 ARG IMAGE=intersystemsdc/irishealth-community:latest
-ARG IMAGE=intersystemsdc/irishealth-community:2023.2-zpm
+# ARG IMAGE=intersystemsdc/irishealth-community:2023.2-zpm
 FROM $IMAGE
 
 WORKDIR /home/irisowner/irisdev
