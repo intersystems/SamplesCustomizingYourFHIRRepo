@@ -1,5 +1,5 @@
-ARG IMAGE=intersystemsdc/irishealth-community:latest
 # ARG IMAGE=intersystemsdc/irishealth-community:2023.2-zpm
+ARG IMAGE=intersystemsdc/irishealth-community:latest
 
 WORKDIR /home/irisowner/irisdev
 #RUN chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} /opt/irisapp
