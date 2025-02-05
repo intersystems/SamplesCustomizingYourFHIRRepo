@@ -7,9 +7,9 @@ services:
     restart: always
 #   command: --check-caps false
     ports: 
-      - 32782:1972
-      - 32783:52773
-      - 32784:53773
+      - 2001:1972
+      - 2002:52773
+      - 2003:53773
     command: 
       - -a
       - iris session iris -U%SYS '##class(Security.Users).UnExpireUserPasswords("*")'
