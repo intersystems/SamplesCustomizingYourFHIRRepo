@@ -1,5 +1,5 @@
 /// Helper for Patient Resource
-Class HS.Local.FHIRServer.Resources.Patient Extends HS.Local.FHIRServer.Resources.Person
+Class MyFHIRServer.Resources.Patient Extends MyFHIRServer.Resources.Person
 {
 
 /// Get narrative for the patient

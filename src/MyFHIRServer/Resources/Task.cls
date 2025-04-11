@@ -1,5 +1,5 @@
 /// Helper for Organization Resource
-Class HS.Local.FHIRServer.Resources.Task
+Class MyFHIRServer.Resources.Task
 {
 
 /// Generate Text

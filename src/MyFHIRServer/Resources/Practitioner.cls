@@ -1,5 +1,5 @@
 /// Helper for Practitioner Resource
-Class HS.Local.FHIRServer.Resources.Practitioner Extends HS.Local.FHIRServer.Resources.Person
+Class MyFHIRServer.Resources.Practitioner Extends MyFHIRServer.Resources.Person
 {
 
 }

@@ -1,5 +1,5 @@
 /// Helper for Patient and Resource
-Class HS.Local.FHIRServer.Resources.Person Extends HS.Local.FHIRServer.Resources.Humanname
+Class MyFHIRServer.Resources.Person Extends MyFHIRServer.Resources.Humanname
 {
 
 /// Generate Text

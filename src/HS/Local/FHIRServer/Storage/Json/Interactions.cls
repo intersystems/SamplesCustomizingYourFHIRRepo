@@ -78,7 +78,7 @@ Method AddOrUpdateText(resource As %DynamicObject)
 	{
 		try
 		{
-			set text = $CLASSMETHOD("HS.Local.FHIRServer.Resources." _ resource.resourceType, "GenerateText", resource)
+			set text = $CLASSMETHOD("MyFHIRServer.Resources." _ resource.resourceType, "GenerateText", resource)
 			set resource.text = {
 				"status": "generated",
 				"div": ("<div xmlns=""http://www.w3.org/1999/xhtml""><p><b>Generated</b></p>" _  text _ "</div>")
@@ -118,7 +118,7 @@ Method AddDisplayForReference(ByRef context, reference As %DynamicObject)
 
 			if (storageObject.Deleted = 0) // Not deleted
 			{
-				set reference.display = $CLASSMETHOD("HS.Local.FHIRServer.Resources." _ resourceType, "GetDisplayForReference", storageObject.ResourceObject)
+				set reference.display = $CLASSMETHOD("MyFHIRServer.Resources." _ resourceType, "GetDisplayForReference", storageObject.ResourceObject)
 			}
 		}
 	}
