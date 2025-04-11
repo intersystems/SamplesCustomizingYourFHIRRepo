@@ -1,7 +1,7 @@
 Include (HS.FHIRServer, %occErrors)
 
 /// $truncate operation - removes all resources from the dev respoitory
-Class HS.Local.FHIRServer.Storage.TruncateOperation
+Class MyFHIRServer.Storage.TruncateOperation
 {
 
 /// Is $truncate available in this environment?
@@ -51,11 +51,11 @@ ClassMethod FHIRSystemOpTruncate(pService As HS.FHIRServer.API.Service, pRequest
 }
 
 /// Truncate all resource tables
-ClassMethod TruncateAllresourceTables(interactions As HS.Local.FHIRServer.Storage.Json.Interactions)
+ClassMethod TruncateAllresourceTables(interactions As MyFHIRServer.Storage.Json.Interactions)
 {
     $$$FSLog("Truncating all resource tables: ")
 
-    #dim resourceList as %DynamicArray = ##class(HS.Local.FHIRServer.Storage.Json.InteractionsStrategy).GetResourceList()
+    #dim resourceList as %DynamicArray = ##class(MyFHIRServer.Storage.Json.InteractionsStrategy).GetResourceList()
 
     do ..TruncateTable(interactions.strategy.GetResourceTable(""))
     do ..TruncateTable(interactions.strategy.GetResourceVersionTable(""))

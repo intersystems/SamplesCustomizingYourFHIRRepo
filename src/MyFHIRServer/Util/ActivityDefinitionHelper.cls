@@ -8,7 +8,7 @@ Parameter ResourceName = "ActivityDefinition";
 /// Please note that there are 2 types of Tasks:instantiates-canonical that might match:
 /// - Those with specific version in the instantiates-canonical url
 /// - Those without version, as log as this ActivityDefinition is the newest (with the highest version!) 
-ClassMethod GetActivityDefinitionUrlByKey(strategy As HS.Local.FHIRServer.Storage.Json.InteractionsStrategy, key As %String, Output version As %String, Output isHighestVersion As %Boolean) As %String
+ClassMethod GetActivityDefinitionUrlByKey(strategy As MyFHIRServer.Storage.Json.InteractionsStrategy, key As %String, Output version As %String, Output isHighestVersion As %Boolean) As %String
 {
     set tSQL = "Select url, version from " _ strategy.GetSearchTable(..#ResourceName) _ " where Key=?"
     set tSQLParams = 0
@@ -28,7 +28,7 @@ ClassMethod GetActivityDefinitionUrlByKey(strategy As HS.Local.FHIRServer.Storag
 }
 
 /// Get higestversion for the specific URL
-ClassMethod GetHighestVersion(strategy As HS.Local.FHIRServer.Storage.Json.InteractionsStrategy, url As %String) As %Status
+ClassMethod GetHighestVersion(strategy As MyFHIRServer.Storage.Json.InteractionsStrategy, url As %String) As %Status
 {
     set tSQLParams = 0
     set tSQL = "Select version from " _ strategy.GetSearchTable(..#ResourceName) _ " where url=? ORDER BY version DESC"
@@ -45,7 +45,7 @@ ClassMethod GetHighestVersion(strategy As HS.Local.FHIRServer.Storage.Json.Inter
 
 /// Get Key for Activitydefinition Url - as used in _include
 /// Please note that the url may have a version postfix!
-ClassMethod GetActivityDefinitionKeyByUrl(strategy As HS.Local.FHIRServer.Storage.Json.InteractionsStrategy, url As %String) As %String
+ClassMethod GetActivityDefinitionKeyByUrl(strategy As MyFHIRServer.Storage.Json.InteractionsStrategy, url As %String) As %String
 {
     set version = $PIECE(url, "|", 2)
     set url = $PIECE(url, "|", 1)
@@ -73,7 +73,7 @@ ClassMethod GetActivityDefinitionKeyByUrl(strategy As HS.Local.FHIRServer.Storag
 }
 
 /// Ensure uniqueness of Activitydefinition during create
-ClassMethod EnsureUniqueness(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, url As %String, version As %String)
+ClassMethod EnsureUniqueness(interactions As MyFHIRServer.Storage.Json.Interactions, url As %String, version As %String)
 {
 	set tableName = interactions.getTableForResourceType(..#ResourceName)
 
@@ -101,7 +101,7 @@ ClassMethod EnsureUniqueness(interactions As HS.Local.FHIRServer.Storage.Json.In
 
 /// The (canonical) url or version has changed
 /// Ensure that the update of ActivityDefinition breaks no links!!
-ClassMethod EnsureUpdateisValid(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, pResourceObj As %DynamicObject, oldUrl As %String, oldVersion As %String)
+ClassMethod EnsureUpdateisValid(interactions As MyFHIRServer.Storage.Json.Interactions, pResourceObj As %DynamicObject, oldUrl As %String, oldVersion As %String)
 {
     $$$FSLog("ActivityDefinition key changed from '" _ oldUrl _ "|" _ oldVersion _ "' to '" _ pResourceObj.url _ "|" _ pResourceObj.version _ "'")
 
@@ -114,7 +114,7 @@ ClassMethod EnsureUpdateisValid(interactions As HS.Local.FHIRServer.Storage.Json
 }
 
 /// Ensure that no Task resources are linked via instantiatesCanonical
-ClassMethod EnsureNoBreakingLinks(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, id As %String, url As %String, version As %String, reason As %String = "delete")
+ClassMethod EnsureNoBreakingLinks(interactions As MyFHIRServer.Storage.Json.Interactions, id As %String, url As %String, version As %String, reason As %String = "delete")
 {
     set resourceKey = $$$BuildRsrcKey(..#ResourceName, id)
 
@@ -133,7 +133,7 @@ ClassMethod EnsureNoBreakingLinks(interactions As HS.Local.FHIRServer.Storage.Js
 }
 
 /// Is this the Last ActivityDefinition with this url?
-ClassMethod IsLastWithThisUrl(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, id As %String, url As %String) As %Boolean
+ClassMethod IsLastWithThisUrl(interactions As MyFHIRServer.Storage.Json.Interactions, id As %String, url As %String) As %Boolean
 {
     set tSQLParams = 0
     set tSQL = "Select count(*) as aantal from " _ interactions.getTableForResourceType(..#ResourceName) _ " where url = ? AND _id <> ?"

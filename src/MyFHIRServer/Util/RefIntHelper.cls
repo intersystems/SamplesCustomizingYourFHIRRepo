@@ -5,7 +5,7 @@ Class MyFHIRServer.Util.RefIntHelper Extends HS.FHIRServer.Util.ReferenceVisitor
 {
 
 /// Validate references for the resource
-ClassMethod ValidateReferences(resource As %DynamicObject, strategy As HS.Local.FHIRServer.Storage.Json.InteractionsStrategy)
+ClassMethod ValidateReferences(resource As %DynamicObject, strategy As MyFHIRServer.Storage.Json.InteractionsStrategy)
 {
 	set context("strategy") = strategy // Used to check whether a resource exists
 	set context("schema") = strategy.schema
@@ -119,7 +119,7 @@ ClassMethod ValidateReference(ByRef context, reference As %DynamicObject)
 }
 
 /// Check if the  resource with the specified identifier exists
-ClassMethod ValidateIdentifierValue(strategy As HS.Local.FHIRServer.Storage.Json.InteractionsStrategy, referenceType As %String, targetResourceType As %String, system As %String, value As %String, location As %String) As %String
+ClassMethod ValidateIdentifierValue(strategy As MyFHIRServer.Storage.Json.InteractionsStrategy, referenceType As %String, targetResourceType As %String, system As %String, value As %String, location As %String) As %String
 {
     if (targetResourceType = "") // Can't check without type
     {
@@ -139,7 +139,7 @@ ClassMethod ValidateIdentifierValue(strategy As HS.Local.FHIRServer.Storage.Json
 }
 
 /// Check if the specified reference can be resolved
-ClassMethod ValidateReferenceValue(strategy As HS.Local.FHIRServer.Storage.Json.InteractionsStrategy, referenceType As %String, targetResourceType As %String, column As %String, referenceValue As %String, location As %String)
+ClassMethod ValidateReferenceValue(strategy As MyFHIRServer.Storage.Json.InteractionsStrategy, referenceType As %String, targetResourceType As %String, column As %String, referenceValue As %String, location As %String)
 {
     set version = ""
     set value = referenceValue

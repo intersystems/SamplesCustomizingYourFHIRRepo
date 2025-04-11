@@ -1,18 +1,18 @@
 Include HS.FHIRServer
 
 /// FHIR Interactions handler
-Class HS.Local.FHIRServer.Storage.Json.Interactions Extends (HS.FHIRServer.Storage.Json.Interactions, MyFHIRServer.Util.IdentifierHelper)
+Class MyFHIRServer.Storage.Json.Interactions Extends (HS.FHIRServer.Storage.Json.Interactions, MyFHIRServer.Util.IdentifierHelper)
 {
 
-Parameter OperationHandlerClass = "HS.Local.FHIRServer.Storage.BuiltInOperations";
+Parameter OperationHandlerClass = "MyFHIRServer.Storage.BuiltInOperations";
 
 Parameter BatchHandlerClass As STRING = "HS.FHIRServer.Storage.Json.BundleProcessor";
 
-Parameter ResourceValidatorClass As STRING = "HS.Local.FHIRServer.Util.ResourceValidator";
+Parameter ResourceValidatorClass As STRING = "MyFHIRServer.Util.ResourceValidator";
 
 Parameter OAuth2TokenHandlerClass As STRING = "HS.FHIRServer.Util.OAuth2Token";
 
-Property strategy As HS.Local.FHIRServer.Storage.Json.InteractionsStrategy;
+Property strategy As MyFHIRServer.Storage.Json.InteractionsStrategy;
 
 /// Handle create interaction
 Method Add(pResourceObj As %DynamicObject, pResourceIdToAssign As %String = "", pHttpMethod As %String = "POST") As %String

@@ -1,6 +1,6 @@
 /// Override for Resource SuperClass
 /// This adds a ResourceReferences property where we will store all used references
-Class HS.Local.FHIRServer.Storage.Json.Resource Extends HS.FHIRServer.Storage.Json.Resource
+Class MyFHIRServer.Storage.Json.Resource Extends HS.FHIRServer.Storage.Json.Resource
 {
 
 /// All references to other resources

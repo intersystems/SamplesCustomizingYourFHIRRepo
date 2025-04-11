@@ -1,5 +1,5 @@
 /// Override for Resource SuperClass
-Class HS.Local.FHIRServer.Storage.Minimal.Resource Extends HS.FHIRServer.Storage.Json.Resource
+Class MyFHIRServer.Storage.Minimal.Resource Extends HS.FHIRServer.Storage.Json.Resource
 {
 
 Storage Default

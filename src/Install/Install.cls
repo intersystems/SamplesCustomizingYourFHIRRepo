@@ -69,7 +69,7 @@ ClassMethod SetupFHIRServer(namespace As %String = {..#Namespace}) As %Status
     if '##class(HS.FHIRServer.ServiceAdmin).EndpointExists(appKey)
     {
 		set packageList = $ListBuild("hl7.fhir.r4.core@4.0.1", "MyFhirServer-searchparameters@0.0.1")
-		do ##class(HS.FHIRServer.Installer).InstallInstance(appKey, "HS.Local.FHIRServer.Storage.Json.InteractionsStrategy", packageList)
+		do ##class(HS.FHIRServer.Installer).InstallInstance(appKey, "MyFHIRServer.Storage.Json.InteractionsStrategy", packageList)
 
 		// Enable logging (see https://docs.intersystems.com/irisforhealthlatest/csp/docbook/DocBook.UI.Page.cls?KEY=HXFHIR_server_debugMaintain)
 		set ^FSLogChannel("all") = 1

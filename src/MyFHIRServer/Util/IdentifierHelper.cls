@@ -5,7 +5,7 @@ Class MyFHIRServer.Util.IdentifierHelper
 {
 
 /// Make sure that each of the identifiers in the object are unique!
-ClassMethod EnsureUniqueIdentifiersBeforeWrite(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, resource As %DynamicObject)
+ClassMethod EnsureUniqueIdentifiersBeforeWrite(interactions As MyFHIRServer.Storage.Json.Interactions, resource As %DynamicObject)
 {
     set searchTable = interactions.getTableForResourceType(resource.resourceType)
     

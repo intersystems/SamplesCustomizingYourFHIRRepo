@@ -1,7 +1,7 @@
 Include (HS.FHIRServer, %occErrors)
 
 /// $expunge operation
-Class HS.Local.FHIRServer.Storage.ExpungeOperation
+Class MyFHIRServer.Storage.ExpungeOperation
 {
 
 /// @API Enumerate the name and url of each Operation supported by this class
@@ -78,7 +78,7 @@ ClassMethod FHIRInstanceOpExpunge(pService As HS.FHIRServer.API.Service, pReques
 /// If  cascadeDelete is true, and the user is allowed to deleta all dependent CareTeams and Tasks, then these are also deleted / reported
 /// Given that the use of Expunge is exceptional, we do expect that there are no new resources being created for the Patient being expunged!
 /// Please note we need to iterate through dependent resources, these may be again have dependent resources (CareTeam <-Task; Task <- Task)
-ClassMethod ExpungeResourceInstance(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, resourceType As %String, id As %String, params As %DynamicObject, issues As %DynamicArray)
+ClassMethod ExpungeResourceInstance(interactions As MyFHIRServer.Storage.Json.Interactions, resourceType As %String, id As %String, params As %DynamicObject, issues As %DynamicArray)
 {
     $$$FSLog("Operation called for " _ $$$BuildRsrcKey(resourceType, id))
 
@@ -122,7 +122,7 @@ ClassMethod LogInformational(issues As %DynamicArray, message As %String)
 }
 
 /// Delete dependent resources
-ClassMethod DeleteDependentResources(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, dependentResources As %DynamicArray, reportOnly As %Boolean) As %String
+ClassMethod DeleteDependentResources(interactions As MyFHIRServer.Storage.Json.Interactions, dependentResources As %DynamicArray, reportOnly As %Boolean) As %String
 {
     if reportOnly
     {

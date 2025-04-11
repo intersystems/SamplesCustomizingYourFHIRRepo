@@ -5,7 +5,7 @@ Class MyFHIRServer.Util.RefintReverseHelper
 {
 
 /// Ensure that no resources are linked to this resourse before delete
-ClassMethod EnsureNoLinksBeforeDelete(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, fromResourceType As %String, id As %String)
+ClassMethod EnsureNoLinksBeforeDelete(interactions As MyFHIRServer.Storage.Json.Interactions, fromResourceType As %String, id As %String)
 {
     set fromResourceKey = $$$BuildRsrcKey(fromResourceType, id)
     set resourceTable = interactions.strategy.GetResourceTable(fromResourceType)
@@ -27,7 +27,7 @@ ClassMethod EnsureNoLinksBeforeDelete(interactions As HS.Local.FHIRServer.Storag
 }
 
 /// Ensure that no resources of the specified type are linked via the specified column
-ClassMethod EnsureNoRecourcesForTypeAreLinked(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, fromResourceKey As %String, referencePath As %String, value As %String, reason As %String = "delete")
+ClassMethod EnsureNoRecourcesForTypeAreLinked(interactions As MyFHIRServer.Storage.Json.Interactions, fromResourceKey As %String, referencePath As %String, value As %String, reason As %String = "delete")
 {
     set fromClause = ..GetFromClauseForReferencePath(interactions, referencePath, value, .targetResourceType, .targetColumn)
 	#dim result As %SQL.StatementResult = ##class(HS.FHIRServer.Util.RunSQLQuery).runQuery("SELECT count(*) as countLinked" _ fromClause)
@@ -44,7 +44,7 @@ ClassMethod EnsureNoRecourcesForTypeAreLinked(interactions As HS.Local.FHIRServe
 }
 
 /// Find dependent resources for cascade-delete
-ClassMethod FindDependentResourcesForCascadeDelete(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, fromResourceType As %String, id As %String) As %DynamicArray
+ClassMethod FindDependentResourcesForCascadeDelete(interactions As MyFHIRServer.Storage.Json.Interactions, fromResourceType As %String, id As %String) As %DynamicArray
 {
     set dependentResources = []
 
@@ -54,7 +54,7 @@ ClassMethod FindDependentResourcesForCascadeDelete(interactions As HS.Local.FHIR
 }
 
 /// Add dependent resources for cascade-delete in the context of a single Patient.
-ClassMethod AddDependentResourcesForCascadeDelete(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, fromResourceType As %String, id As %String, dependentResources As %DynamicArray)
+ClassMethod AddDependentResourcesForCascadeDelete(interactions As MyFHIRServer.Storage.Json.Interactions, fromResourceType As %String, id As %String, dependentResources As %DynamicArray)
 {
     set fromResourceKey = $$$BuildRsrcKey(fromResourceType, id)
     set resourceTable = interactions.strategy.GetResourceTable(fromResourceType)
@@ -99,7 +99,7 @@ ClassMethod FindKey(dependentResources As %DynamicArray, targetResourceType As %
 }
 
 /// Get TableName and SearchColumn for ReferencePath
-ClassMethod GetFromClauseForReferencePath(interactions As HS.Local.FHIRServer.Storage.Json.Interactions, referencePath As %String, value As %String, Output targetResourceType As %String, Output columnName As %String) As %String
+ClassMethod GetFromClauseForReferencePath(interactions As MyFHIRServer.Storage.Json.Interactions, referencePath As %String, value As %String, Output targetResourceType As %String, Output columnName As %String) As %String
 {
     set targetResourceType = $PIECE(referencePath, ":", 1)
     set columnName = $PIECE(referencePath, ":", 2)
